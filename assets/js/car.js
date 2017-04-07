@@ -22,6 +22,9 @@
   var CAR_BODY_DATA_URLS = [];
   var CAR_BODY_WEIGHTS = [];
 
+  // Loaded asynchronously before showing any cars.
+  var TIRE_DATA_URLS = {};
+
   function CarView(element) {
     this._element = element;
     element.style.backgroundImage = 'url('+IMG_URL+'road.png)';
@@ -31,7 +34,9 @@
     element.style.overflow = 'hidden';
 
     this._cars = [];
-    loadCarImages(this._scheduleNextCar.bind(this));
+    loadTireImages(function() {
+      loadCarImages(this._scheduleNextCar.bind(this));
+    }.bind(this));
   }
 
   CarView.prototype.layout = function() {
@@ -118,8 +123,8 @@
     this._frontTire = document.createElement('div');
     this._backTire = document.createElement('div');
 
-    var images = [randomCarImageURL(), IMG_URL+'tire_front.png',
-      IMG_URL+'tire_back.png'];
+    var images = [randomCarImageURL(), TIRE_DATA_URLS.front,
+      TIRE_DATA_URLS.back];
     var elements = [this._element, this._frontTire, this._backTire];
     for (var i = 0; i < 3; ++i) {
       var e = elements[i];
@@ -209,6 +214,25 @@
         };
         img.src = IMG_URL + 'car_body_' + name + '.png';
       })(CAR_BODY_NAMES[i], CAR_BODY_NAME_WEIGHTS[i]);
+    }
+  }
+
+  function loadTireImages(cb) {
+    var numLoaded = 0;
+    var names = ['tire_front.png', 'tire_back.png'];
+    var keys = ['front', 'back'];
+    for (var i = 0; i < names.length; ++i) {
+      (function(name, key) {
+        var img = document.createElement('img');
+        img.onload = function() {
+          ++numLoaded;
+          TIRE_DATA_URLS[key] = imageDataURL(img);
+          if (numLoaded === names.length) {
+            cb();
+          }
+        }.bind(this);
+        img.src = IMG_URL + name;
+      }.bind(this))(names[i], keys[i]);
     }
   }
 
