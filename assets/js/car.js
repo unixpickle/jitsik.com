@@ -34,7 +34,7 @@
     loadCarImages(this._scheduleNextCar.bind(this));
   }
 
-  CarView.prototype.resize = function() {
+  CarView.prototype.layout = function() {
     for (var i = 0; i < this._cars.length; ++i) {
       this._cars[i].layout();
     }

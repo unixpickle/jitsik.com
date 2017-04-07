@@ -1,5 +1,27 @@
 html, body {
   margin: 0;
+  font-family: sans-serif;
+  background-color: #f0f0f0;
+}
+
+#header {
+  position: absolute;
+  height: 400px;
   width: 100%;
-  height: 100%;
+  overflow: hidden;
+}
+
+#panes {
+  position: absolute;
+  top: 400px;
+}
+
+.pane {
+  display: inline-block;
+  color: #67788c;
+  text-align: left;
+}
+
+.pane h1 {
+  text-transform: uppercase;
 }
