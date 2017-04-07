@@ -80,8 +80,11 @@
 
   ManagedCar.prototype.run = function(cb) {
     var ival;
+    var lastTime = new Date().getTime();
     ival = setInterval(function() {
-      this._move(1/24);
+      var now = new Date().getTime();
+      this._move((now-lastTime)/1000);
+      lastTime = now;
       if (this._offscreen()) {
         this._container.removeChild(this._car.element());
         clearInterval(ival);
