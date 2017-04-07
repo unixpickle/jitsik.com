@@ -50,7 +50,7 @@
 .header-bg {
   position: absolute;
   background-size: 100% auto;
-  background-position: absolute;
+  background-position: center bottom;
 }
 
 .hidden-header-bg {
