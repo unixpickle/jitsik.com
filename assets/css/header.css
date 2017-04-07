@@ -5,15 +5,7 @@
 #header .box {
   position: absolute;
   box-sizing: border-box;
-}
-
-.blurred-bg::before {
-  content: ' ';
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
 }
 
 #header .box .heading {
@@ -53,4 +45,31 @@
 #header .box h2 {
   margin: 15px 0;
   font-size: 18px;
+}
+
+.header-bg {
+  position: absolute;
+  background-size: 100% auto;
+  background-position: absolute;
+}
+
+.hidden-header-bg {
+  visibility: hidden;
+}
+
+#blurred-header-bg::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+#blurred-header-bg {
+  background-image: url('../images/header/blurred.jpg');
+}
+
+#main-header-bg {
+  background-image: url('../images/header/normal.jpg');
 }

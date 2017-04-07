@@ -10,24 +10,10 @@
   function Header(element) {
     this._element = element;
     this._box = element.getElementsByClassName('box')[0];
-    this._mainBg = document.createElement('div');
-    this._blurredBg = document.createElement('div');
-    this._blurredBg.className = 'blurred-bg';
-
-    var images = ['normal.jpg', 'blurred.jpg'];
-    var elems = [this._mainBg, this._blurredBg];
-    for (var i = 0; i < 2; ++i) {
-      var e = elems[i];
-      e.style.backgroundImage = 'url(' + IMG_URL + images[i] + ')';
-      e.style.backgroundSize = '100% auto';
-      e.style.backgroundPosition = 'center bottom';
-      e.style.position = 'absolute';
-    }
-    this._element.insertBefore(this._mainBg, this._element.firstChild);
-
-    this._box.insertBefore(this._blurredBg, this._box.firstChild);
-    this._box.style.overflow = 'hidden';
-
+    this._mainBg = document.getElementById('main-header-bg');
+    this._blurredBg = document.getElementById('blurred-header-bg');
+    this._mainBg.className = 'header-bg';
+    this._blurredBg.className = 'header-bg';
     this.layout();
   }
 
