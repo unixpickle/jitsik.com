@@ -10,10 +10,17 @@
   var BACK_TIRE_LEFT = 415;
   var BACK_TIRE_TOP = 116;
 
-  var CAR_VELOCITY = 2  ;
+  var CAR_VELOCITY = 2;
 
   var MIN_DELAY = 2000;
   var MAX_DELAY = 5000;
+
+  var CAR_BODY_NAMES = ['black', 'blue', 'red', 'purple', 'silver', 'white'];
+  var CAR_BODY_NAME_WEIGHTS = [1, 1, 1, 1, 1, 0.1];
+
+  // Loaded asynchronously by loadCarImages().
+  var CAR_BODY_DATA_URLS = [];
+  var CAR_BODY_WEIGHTS = [];
 
   function CarView(element) {
     this._element = element;
@@ -21,9 +28,10 @@
     element.style.backgroundRepeat = 'repeat-x';
     element.style.backgroundSize = 'auto 100%';
     element.style.backgroundPosition = 'center';
+    element.style.overflow = 'hidden';
 
     this._cars = [];
-    this._scheduleNextCar();
+    loadCarImages(this._scheduleNextCar.bind(this));
   }
 
   CarView.prototype.resize = function() {
@@ -49,11 +57,11 @@
     this._car = new Car(facingLeft);
 
     if (facingLeft) {
-      this._topFrac = 0.40;
+      this._topFrac = 0.20;
       this._bottomFrac = 0.64;
     } else {
-      this._topFrac = 0.4;
-      this._bottomFrac = 0.95;
+      this._topFrac = 0.3;
+      this._bottomFrac = 1;
     }
 
     if (facingLeft) {
@@ -107,11 +115,12 @@
     this._frontTire = document.createElement('div');
     this._backTire = document.createElement('div');
 
-    var images = ['car_body.png', 'tire_front.png', 'tire_back.png'];
+    var images = [randomCarImageURL(), IMG_URL+'tire_front.png',
+      IMG_URL+'tire_back.png'];
     var elements = [this._element, this._frontTire, this._backTire];
     for (var i = 0; i < 3; ++i) {
       var e = elements[i];
-      e.style.backgroundImage = 'url('+IMG_URL+images[i]+')';
+      e.style.backgroundImage = 'url('+images[i]+')';
       e.style.backgroundSize = '100% 100%';
       e.style.position = 'absolute';
       if (i > 0) {
@@ -159,6 +168,21 @@
     this._element.style[posAttr] = cssSize(centerX - distFromCenter);
   };
 
+  function randomCarImageURL() {
+    var totalWeight = 0;
+    for (var i = 0; i < CAR_BODY_WEIGHTS.length; ++i) {
+      totalWeight += CAR_BODY_WEIGHTS[i];
+    }
+    var num = Math.random() * totalWeight;
+    for (var i = 0; i < CAR_BODY_WEIGHTS.length; ++i) {
+      num -= CAR_BODY_WEIGHTS[i];
+      if (num < 0) {
+        return CAR_BODY_DATA_URLS[i];
+      }
+    }
+    return CAR_BODY_DATA_URLS[0];
+  }
+
   function cssSize(size) {
     return size.toFixed(2) + 'px';
   }
@@ -166,6 +190,32 @@
   function setTransform(el, text) {
     el.style.transform = text;
     el.style.webkitTransform = text;
+  }
+
+  function loadCarImages(firstCb) {
+    for (var i = 0; i < CAR_BODY_NAMES.length; ++i) {
+      (function(name, weight) {
+        var img = document.createElement('img');
+        img.onload = function() {
+          CAR_BODY_DATA_URLS.push(imageDataURL(img));
+          CAR_BODY_WEIGHTS.push(weight);
+          if (firstCb) {
+            firstCb();
+            firstCb = null;
+          }
+        };
+        img.src = IMG_URL + 'car_body_' + name + '.png';
+      })(CAR_BODY_NAMES[i], CAR_BODY_NAME_WEIGHTS[i]);
+    }
+  }
+
+  function imageDataURL(img) {
+    var canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    return canvas.toDataURL('image/png');
   }
 
   window.CarView = CarView;
