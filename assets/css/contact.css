@@ -67,6 +67,16 @@
   background-color: #666;
 }
 
+#contact.sent #contact-submit {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+#contact.sent input, #contact.sent textarea {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 input::-webkit-contacts-auto-fill-button {
   visibility: hidden;
   display: none !important;
