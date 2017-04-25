@@ -139,3 +139,45 @@ input::-webkit-contacts-auto-fill-button {
     margin-bottom: 10px;
   }
 }
+
+.shaking {
+  animation: shake 0.8s linear;
+  -webkit-animation: shake 0.8s linear;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(-4px, 0);
+    -webkit-transform: translate(-4px, 0);
+  }
+
+  12.5% {
+    transform: translate(4px, 0);
+    -webkit-transform: translate(4px, 0);
+  }
+
+  25% {
+    transform: translate(-2px, 0);
+    -webkit-transform: translate(-2px, 0);
+  }
+
+  37.5% {
+    transform: translate(2px, 0);
+    -webkit-transform: translate(2px, 0);
+  }
+
+  50% {
+    transform: translate(-1px, 0);
+    -webkit-transform: translate(-1px, 0);
+  }
+
+  75% {
+    transform: translate(1px, 0);
+    -webkit-transform: translate(1px, 0);
+  }
+
+  100% {
+    transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+  }
+}
