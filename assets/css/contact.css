@@ -1,0 +1,141 @@
+#contact {
+  color: #777;
+  text-align: center;
+}
+
+#contact > h1 {
+  text-transform: uppercase;
+  margin: 40px 0;
+}
+
+#contact input {
+  height: 40px;
+  padding: 5px;
+  font-size: 18px;
+  box-sizing: border-box;
+  margin: 0;
+  border: 1px solid #d5d5d5;
+  color: #737373;
+}
+
+::-webkit-input-placeholder {
+  color: #999;
+}
+
+::-moz-placeholder {
+  color: #999;
+}
+
+:-ms-input-placeholder {
+  color: #999;
+}
+
+:-moz-placeholder {
+  color: #999;
+}
+
+#contact input:focus, #contact textarea {
+  outline: 0;
+}
+
+#contact textarea {
+  border: 1px solid #d5d5d5;
+  font-size: 18px;
+  box-sizing: border-box;
+  margin-top: 10px;
+  padding: 5px;
+  resize: none;
+  color: #737373;
+}
+
+#contact-submit {
+  margin-top: 10px;
+  width: 100%;
+  height: 40px;
+  border: none;
+  background-color: #555;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#contact-submit:focus {
+  outline: 0;
+}
+
+#contact-submit:hover {
+  background-color: #666;
+}
+
+input::-webkit-contacts-auto-fill-button {
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
+
+/* We use a > to override earlier margin rule. */
+#contact > #contact-subject {
+  display: block;
+  margin-top: 10px;
+  width: 100%;
+}
+
+#contact-message {
+  display: block;
+  margin-top: 10px;
+  width: 100%;
+  height: 150px;
+}
+
+@media (min-width: 730px) {
+  #contact {
+    position: absolute;
+    height: 450px;
+    bottom: 0px;
+
+    width: 600px;
+    left: calc(50% - 300px);
+  }
+
+  #contact-sender-info::after {
+    content: ' ';
+    display: block;
+    width: 0;
+    height: 0;
+    clear: both;
+  }
+
+  #contact-name {
+    width: 295px;
+    float: left;
+  }
+
+  #contact-email {
+    width: 295px;
+    float: right;
+  }
+}
+
+@media (max-width: 730px) {
+  #contact {
+    position: absolute;
+
+    width: calc(100% - 20px);
+    left: 10px;
+  }
+
+  #contact-name, #contact-email {
+    width: 100%;
+  }
+
+  #contact #contact-email {
+    margin-top: 10px !important;
+    display: block;
+  }
+
+  #contact-submit {
+    margin-bottom: 10px;
+  }
+}
