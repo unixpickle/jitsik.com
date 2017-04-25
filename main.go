@@ -47,7 +47,7 @@ func ContactForm(w http.ResponseWriter, r *http.Request) {
 		"Email: " + r.FormValue("email") + "\n" +
 		"Name: " + r.FormValue("message") + "\n\n" +
 		r.FormValue("body")
-	if err := client.SendText(FacebookRecipient, bodyStr); err != nil {
+	if _, err := client.SendText(FacebookRecipient, bodyStr); err != nil {
 		log.Println("Send error:", err)
 	}
 }
