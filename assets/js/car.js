@@ -15,8 +15,9 @@
   var MIN_DELAY = 2000;
   var MAX_DELAY = 5000;
 
-  var CAR_BODY_NAMES = ['black', 'blue', 'red', 'purple', 'silver', 'white'];
-  var CAR_BODY_NAME_WEIGHTS = [1, 1, 1, 1, 1, 0.1];
+  var CAR_BODY_NAMES = ['65bcd4', 'black', 'blue', 'candy', 'grey', 'red',
+    'white'];
+  var CAR_BODY_NAME_WEIGHTS = [1, 1, 1, 1, 1, 1, 1];
 
   // Loaded asynchronously by loadCarImages().
   var CAR_BODY_DATA_URLS = [];
