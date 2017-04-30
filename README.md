@@ -1,7 +1,3 @@
 # jitsik.com
 
-This will be a website design for jitsik.com. Stay tuned.
-
-# TODO
-
- * Contact page
+This is the website design for jitsik.com.
