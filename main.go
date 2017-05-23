@@ -36,6 +36,20 @@ func main() {
 }
 
 func ContactForm(w http.ResponseWriter, r *http.Request) {
+	var keys = []string{"subject", "email", "name", "message"}
+	allEmpty := true
+	for _, k := range keys {
+		if r.FormValue(k) != "" {
+			allEmpty = false
+			break
+		}
+	}
+
+	if allEmpty {
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+
 	client, err := fbmsgr.Auth(FacebookEmail, FacebookPassword)
 	if err != nil {
 		log.Println("Login error:", err)
