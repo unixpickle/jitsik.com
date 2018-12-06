@@ -16,7 +16,9 @@ var FacebookRecipient string
 
 func main() {
 	var port int
+	var assetDir string
 	flag.IntVar(&port, "port", 1337, "port number")
+	flag.StringVar(&assetDir, "assets", "assets", "web asset directory")
 	flag.Parse()
 
 	FacebookEmail = os.Getenv("CONTACT_EMAIL")
@@ -28,7 +30,7 @@ func main() {
 			"env vars")
 	}
 	http.HandleFunc("/contact", ContactForm)
-	http.Handle("/", http.FileServer(http.Dir(".")))
+	http.Handle("/", http.FileServer(http.Dir(assetDir)))
 
 	if err := http.ListenAndServe(":"+strconv.Itoa(port), nil); err != nil {
 		essentials.Die(err)
